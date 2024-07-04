@@ -2,7 +2,8 @@
 
 
 var result = Module.onRuntimeInitialized = () => {
-    const result = Module._add(1, 1);
-    console.log(result);
+    let buf = Int32Array(1);
+    const result = Module._add(buf.data);
+    console.log(buf[0]);
 };
 
