@@ -1389,7 +1389,9 @@ var wasmImports = {
 };
 var wasmExports = createWasm();
 var ___wasm_call_ctors = createExportWrapper('__wasm_call_ctors', 0);
-var _render = Module['_render'] = createExportWrapper('render', 2);
+var _keyup = Module['_keyup'] = createExportWrapper('keyup', 1);
+var _keydown = Module['_keydown'] = createExportWrapper('keydown', 1);
+var _update = Module['_update'] = createExportWrapper('update', 3);
 var _fflush = createExportWrapper('fflush', 1);
 var _strerror = createExportWrapper('strerror', 1);
 var _emscripten_stack_init = () => (_emscripten_stack_init = wasmExports['emscripten_stack_init'])();

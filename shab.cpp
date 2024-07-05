@@ -9,7 +9,7 @@ int main(int argc, char **argv) {
     std::string output = "main.js";
     std::string source = "main.cpp";
 
-    std::vector<std::string> exported_functions = {"_render"};
+    std::vector<std::string> exported_functions = {"_update", "_keyup", "_keydown"};
 
     if (shab_needs_rebuild(output, source)) {
         std::string function_exports = " -sEXPORTED_RUNTIME_METHODS=ccall -sEXPORTED_FUNCTIONS=";
