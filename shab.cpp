@@ -58,6 +58,7 @@ int main(int argc, char **argv) {
             return message;
 
         }(argv,argc) : "another push";
+        
         std::string command = "git commit -m \"" + message + "\"";
         std::system(command.c_str());
         std::cout << command << std::endl;
