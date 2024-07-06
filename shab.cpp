@@ -7,11 +7,14 @@ int main(int argc, char **argv) {
     rebuild_yourself(argc, argv, __FILE__);
 
     std::string output = "main.js";
-    std::string source = "main.cpp";
+    std::vector<std::string> sources = {"main.cpp", "util.cpp", "Tetris/Game.cpp", "Tetris/Move.cpp", "Tetris/Piece.cpp", "Tetris/rng.cpp", "Tetris/VSGame.cpp"};
+    for (auto &source : sources) {
+        source = "cpp/" + source;
+    }
 
     std::vector<std::string> exported_functions = {"_update", "_keyup", "_keydown"};
 
-    if (shab_needs_rebuild(output, source)) {
+    if (shab_needs_rebuild(output, sources)) {
         std::string function_exports = " -sEXPORTED_RUNTIME_METHODS=ccall -sEXPORTED_FUNCTIONS=";
 
         for (size_t i = 0; i < exported_functions.size(); ++i) {
@@ -21,9 +24,19 @@ int main(int argc, char **argv) {
                 function_exports += ",";
         }
 
-        std::string command = std::string("em++ ") + source + std::string(" -o ") + output + function_exports;
+        std::string command = std::string("em++ -std=c++23 ");
 
-        std::system(command.c_str());
+        for (auto &source : sources) {
+            command += source + " ";
+        }
+
+        command += std::string(" -o ") + output + function_exports;
+
+        if (std::system(command.c_str())) {
+            std::cout << "command: " << command << std::endl;
+            std::cout << "could not be built!" << std::endl;
+            return 1;
+        }
 
         std::cout << "command: " << command << std::endl;
         std::cout << "built!" << std::endl;

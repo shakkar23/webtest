@@ -3,14 +3,22 @@
 
 <head>
     <title>Tetris</title>
-    <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body onresize="resize_canvas()">
+    <canvas id="game"></canvas>
+
     <script src="main.js"></script>
     <script src="wasm_user.js"></script>
-    
-    <canvas id="game"></canvas>
+    <style>
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+
 </body>
 
 </html>

@@ -38,6 +38,7 @@
 void rebuild_yourself(int argc, char **argv, std::string file_name);
 
 bool shab_needs_rebuild(std::string_view binary_path, std::string_view source_path);
+bool shab_needs_rebuild(std::string_view binary_path, const std::vector<std::string> &source_paths);
 
 #ifdef SHAB_IMPLEMENTATION
 
@@ -93,6 +94,15 @@ void rebuild_yourself(int argc, char **argv, std::string file_name) {
 
 bool shab_needs_rebuild(std::string_view binary_path, std::string_view source_path) {
     return std::filesystem::last_write_time(binary_path) < std::filesystem::last_write_time(source_path);
+}
+
+bool shab_needs_rebuild(std::string_view binary_path, const std::vector<std::string> &source_paths) {
+    for (auto &source : source_paths) {
+        if (shab_needs_rebuild(binary_path, source))
+            return true;
+    }
+
+    return false;
 }
 
 #endif  // SHAB_IMPLEMENTATION
