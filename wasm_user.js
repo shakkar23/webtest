@@ -34,36 +34,38 @@ let result = Module.onRuntimeInitialized = () => {
     // upper case versions of WASD are allocated for the arrow keys, everything else should be the same though
     // just dont hold the shift key while playing tetris, and use my controls i guess
     addEventListener('keydown', (e) => {
-        if (e.key == "ArrowUp") {
-            Module._keyup('W'.charCodeAt());
-        } else if (e.key == "ArrowDown") {
-            Module._keyup('S'.charCodeAt());
-        } else if (e.key == "ArrowLeft") {
-            Module._keyup('A'.charCodeAt());
-        } else if (e.key == "ArrowRight") {
-            Module._keyup('D'.charCodeAt());
-        } else
-            Module._keyup(e.key.charCodeAt());
-        console.log(e.key);
+        if (!e.repeat) {
+            if (e.key == "ArrowUp") {
+                Module._keydown('W'.charCodeAt());
+            } else if (e.key == "ArrowDown") {
+                Module._keydown('S'.charCodeAt());
+            } else if (e.key == "ArrowLeft") {
+                Module._keydown('A'.charCodeAt());
+            } else if (e.key == "ArrowRight") {
+                Module._keydown('D'.charCodeAt());
+            } else
+                Module._keydown(e.key.charCodeAt());
+            console.log(e.key);
+        }
     });
 
     addEventListener('keyup', (e) => {
-        if (e.key == "ArrowUp"){
-            Module._keyup('W'.charCodeAt());
-        } else if (e.key == "ArrowDown") {
-            Module._keyup('S'.charCodeAt());
-        } else if (e.key == "ArrowLeft") {
-            Module._keyup('A'.charCodeAt());
-        } else if (e.key == "ArrowRight") {
-            Module._keyup('D'.charCodeAt());
-        } else 
-            Module._keyup(e.key.charCodeAt());
-        console.log(e.key);
+        if (!e.repeat) {
+            if (e.key == "ArrowUp") {
+                Module._keyup('W'.charCodeAt());
+            } else if (e.key == "ArrowDown") {
+                Module._keyup('S'.charCodeAt());
+            } else if (e.key == "ArrowLeft") {
+                Module._keyup('A'.charCodeAt());
+            } else if (e.key == "ArrowRight") {
+                Module._keyup('D'.charCodeAt());
+            } else
+                Module._keyup(e.key.charCodeAt());
+            console.log(e.key);
+        }
     });
 
 };
-
-
 
 // this is also the rendering code
 function update(time) {
