@@ -87,7 +87,7 @@ class Window {
 Window::Color red = {.r = 255, .a = 255};
 Window::Color green = {.g = 255, .a = 255};
 Window::Color blue = {.b = 255, .a = 255};
-
+Window::Color gray = {.r = 150, .g = 150, .b = 150, .a = 255};
 // game state
 VersusGame game;
 
@@ -188,7 +188,7 @@ extern "C" uint8_t* EMSCRIPTEN_KEEPALIVE update(float dt, int w, int h) {
             float cell_length = board_area.w / 10.0;
             int cell_x = board_area.x + cell_length * x;
             int cell_y = board_area.y + cell_length * y;
-            window.DrawRect({.x = cell_x, .y = cell_y, .w = int(cell_length), .h = int(cell_length)}, red);
+            window.DrawRect({.x = cell_x, .y = cell_y, .w = int(cell_length), .h = int(cell_length)}, gray);
         }
 
     return (uint8_t*)window.screen_data.data();
