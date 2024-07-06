@@ -76,7 +76,6 @@ function update(time) {
     let dt = time - prev_time;
 
     // the update function does both rendering as well as logic
-    console.log(dt / 1000);
     let screen_ptr = Module._update(dt / 1000, app.width, app.height);
     let arr = new Uint8ClampedArray(Module.HEAPU8.buffer, screen_ptr, app.width * app.height * 4)
     let wasm_screen = new ImageData(arr, app.width, app.height);
