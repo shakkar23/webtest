@@ -36,15 +36,19 @@ let result = Module.onRuntimeInitialized = () => {
     addEventListener('keydown', (e) => {
         if (!e.repeat) {
             if (e.key == "ArrowUp") {
-                Module._keydown('W'.charCodeAt());
-            } else if (e.key == "ArrowDown") {
-                Module._keydown('S'.charCodeAt());
+                Module._keydown('\x00'.charCodeAt(0));
+
             } else if (e.key == "ArrowLeft") {
-                Module._keydown('A'.charCodeAt());
+                Module._keydown('\x01'.charCodeAt(0));
+
+            } else if (e.key == "ArrowDown") {
+                Module._keydown('\x02'.charCodeAt(0));
+
             } else if (e.key == "ArrowRight") {
-                Module._keydown('D'.charCodeAt());
+                Module._keydown('\x03'.charCodeAt(0));
+
             } else
-                Module._keydown(e.key.charCodeAt());
+                Module._keydown(e.key.toLowerCase().charCodeAt(0));
             console.log(e.key);
         }
     });
@@ -52,15 +56,15 @@ let result = Module.onRuntimeInitialized = () => {
     addEventListener('keyup', (e) => {
         if (!e.repeat) {
             if (e.key == "ArrowUp") {
-                Module._keyup('W'.charCodeAt());
-            } else if (e.key == "ArrowDown") {
-                Module._keyup('S'.charCodeAt());
+                Module._keyup('\x00'.charCodeAt(0));
             } else if (e.key == "ArrowLeft") {
-                Module._keyup('A'.charCodeAt());
+                Module._keyup('\x01'.charCodeAt(0));
+            } else if (e.key == "ArrowDown") {
+                Module._keyup('\x02'.charCodeAt(0));
             } else if (e.key == "ArrowRight") {
-                Module._keyup('D'.charCodeAt());
+                Module._keyup('\x03'.charCodeAt(0));
             } else
-                Module._keyup(e.key.charCodeAt());
+                Module._keyup(e.key.toLowerCase().charCodeAt(0));
             console.log(e.key);
         }
     });
@@ -72,11 +76,13 @@ function update(time) {
     let dt = time - prev_time;
 
     // the update function does both rendering as well as logic
-    let screen_ptr = Module._update(dt, app.width, app.height);
+    console.log(dt / 1000);
+    let screen_ptr = Module._update(dt / 1000, app.width, app.height);
     let arr = new Uint8ClampedArray(Module.HEAPU8.buffer, screen_ptr, app.width * app.height * 4)
     let wasm_screen = new ImageData(arr, app.width, app.height);
 
     ctx.putImageData(wasm_screen, 0, 0);
     // request to keep updating
     requestAnimationFrame(update);
+    prev_time = time;
 }

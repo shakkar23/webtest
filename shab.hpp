@@ -77,6 +77,7 @@ void rebuild_yourself(int argc, char **argv, std::string file_name) {
 
         int result = std::system(command.c_str());
         std::cout << "command:" << command << std::endl;
+
         if (result != 0) {
             std::cerr << "Failed to rebuild itself" << std::endl;
             std::exit(1);

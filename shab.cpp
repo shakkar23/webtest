@@ -7,7 +7,7 @@ int main(int argc, char **argv) {
     rebuild_yourself(argc, argv, __FILE__);
 
     std::string output = "main.js";
-    std::vector<std::string> sources = {"main.cpp", "util.cpp", "Tetris/Game.cpp", "Tetris/Move.cpp", "Tetris/Piece.cpp", "Tetris/rng.cpp", "Tetris/VSGame.cpp"};
+    std::vector<std::string> sources = {"main.cpp", "util.cpp", "game_logic.cpp", "Tetris/Game.cpp", "Tetris/Move.cpp", "Tetris/Piece.cpp", "Tetris/rng.cpp", "Tetris/VSGame.cpp"};
     for (auto &source : sources) {
         source = "cpp/" + source;
     }
@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
                 function_exports += ",";
         }
 
-        std::string command = std::string("em++ -O3 -std=c++23 ");
+        std::string command = std::string("em++ -std=c++23 ");
 
         for (auto &source : sources) {
             command += source + " ";
@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
     if (argc > 1 && std::string(argv[1]) == "-p") {
         std::system("git add .");
         std::cout << "git add ." << std::endl;
-        [](){}();
+        
         std::string message = argc > 1 ? [](char **argv, int argc) -> std::string {
             std::string message;
             for(int i = 2; i < argc; ++i)
