@@ -179,7 +179,7 @@ extern "C" uint8_t* EMSCRIPTEN_KEEPALIVE update(float dt, int w, int h) {
             int cell_x = board_area.x + cell_length * x;
             int cell_y = board_area.y + cell_length * (19 - y);
             if (game.p1_game.board.get(x, y))
-                window.DrawRectFilled({.x = cell_x, .y = cell_y, .w = int(cell_length), .h = int(cell_length)}, green);
+                window.DrawRectFilled({.x = cell_x, .y = cell_y, .w = int(cell_length), .h = int(cell_length)}, gray);
         }
 
     // render the board outline

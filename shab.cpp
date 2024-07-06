@@ -45,12 +45,23 @@ int main(int argc, char **argv) {
     if (argc > 1 && std::string(argv[1]) == "-p") {
         std::system("git add .");
         std::cout << "git add ." << std::endl;
+        [](){}();
+        std::string message = argc > 1 ? [](char **argv, int argc) -> std::string {
+            std::string message;
+            for(int i = 2; i < argc; ++i)
+            {   
+                message += argv[i];
+                if(i < argc - 2){
+                    message += " ";
+                }
+            }
+            return message;
 
-        std::string message = argc > 1 ? argv[2] : "another push";
+        }(argv,argc) : "another push";
         std::string command = "git commit -m \"" + message + "\"";
         std::system(command.c_str());
         std::cout << command << std::endl;
-        
+
         std::system("git push");
         std::cout << "git push" << std::endl;
     }
