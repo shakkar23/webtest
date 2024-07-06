@@ -51,7 +51,9 @@ int main(int argc, char **argv) {
             for(int i = 2; i < argc; ++i)
             {   
                 message += argv[i];
-                message += " ";
+                if(i < argc - 1){
+                    message += " ";
+                }
             }
             return message;
 
