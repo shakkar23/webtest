@@ -92,7 +92,7 @@ void VersusGame::play_moves() {
     if (!p1_move.null_move && p1_cleared_lines == 0) {
         if (p1_meter > 0) {
             // player 2 accepts garbage!
-            p1_game.add_garbage(p1_meter, c_move.p1_garbage_column);
+            p1_game.add_garbage(p1_meter, p1_rng.getRand(Board::width));
             p1_meter = 0;
         }
     }
@@ -100,20 +100,21 @@ void VersusGame::play_moves() {
     if (!p2_move.null_move && p2_cleared_lines == 0) {
         if (p2_meter > 0) {
             // player 2 accepts garbage!
-            p2_game.add_garbage(p2_meter, c_move.p2_garbage_column);
+            p2_game.add_garbage(p2_meter, p2_rng.getRand(Board::width));
             p2_meter = 0;
         }
     }
 
-    p1_game.queue.back() = c_move.p1_next_piece;
-    p2_game.queue.back() = c_move.p2_next_piece;
-    c_move.new_move(p1_first_hold, p2_first_hold);
-
-    if (p1_first_hold)
-        *(p1_game.queue.end() - 2) = c_move.p1_extra_piece;
-
-    if (p2_first_hold)
-        *(p2_game.queue.end() - 2) = c_move.p2_extra_piece;
+    for (auto& piece : p1_game.queue) {
+        if (piece == PieceType::Empty) {
+            piece = p1_rng.getPiece();
+        }
+    }
+    for (auto& piece : p2_game.queue) {
+        if (piece == PieceType::Empty) {
+            piece = p2_rng.getPiece();
+        }
+    }
 
     if (p1_game.collides(p1_game.board, p1_game.current_piece)) {
         game_over = true;

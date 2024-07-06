@@ -20,10 +20,18 @@ class VersusGame {
    public:
 
     VersusGame(){
-        p1_game.current_piece = c_move.rng.getPiece();
+        p1_rng.makebag();
+        p2_rng.makebag();
+
+        p1_game.current_piece = p1_rng.getPiece();
+        p2_game.current_piece = p2_rng.getPiece();
 
         for (auto& piece_type : p1_game.queue) {
-            piece_type = c_move.rng.getPiece();
+            piece_type = p1_rng.getPiece();
+        }
+
+        for (auto& piece_type : p2_game.queue) {
+            piece_type = p2_rng.getPiece();
         }
     }
 
@@ -31,7 +39,9 @@ class VersusGame {
     Game p1_game;
     Game p2_game;
 
-    Chance c_move = Chance();
+    RNG p1_rng;
+    RNG p2_rng;
+
     Move p1_move = Move(Piece(PieceType::Empty), false);
     Move p2_move = Move(Piece(PieceType::Empty), false);
 

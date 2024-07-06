@@ -88,6 +88,7 @@ Window::Color red = {.r = 255, .a = 255};
 Window::Color green = {.g = 255, .a = 255};
 Window::Color blue = {.b = 255, .a = 255};
 Window::Color gray = {.r = 150, .g = 150, .b = 150, .a = 255};
+Window::Color light_gray = {.r = 100, .g = 100, .b = 100, .a = 255};
 // game state
 VersusGame game;
 
@@ -131,6 +132,7 @@ extern "C" uint8_t* EMSCRIPTEN_KEEPALIVE update(float dt, int w, int h) {
     if (std::find(keyboard.begin(), keyboard.end(), 'W') != keyboard.end()) {
         // do hold
         game.p1_game.do_hold();
+
         keyboard.erase('W');
     }
     if (std::find(keyboard.begin(), keyboard.end(), 'A') != keyboard.end()) {
@@ -160,6 +162,19 @@ extern "C" uint8_t* EMSCRIPTEN_KEEPALIVE update(float dt, int w, int h) {
     resting_eye_location.y = int((resting_eye_location.y - 0) * 0.33);
 
     const Rect board_area = getInnerRect(resting_eye_location, 10.0 / 20.0);
+
+    // render the ghost piece
+    Piece ghost = game.p1_game.current_piece;
+    game.p1_game.process_movement(ghost, Movement::SonicDrop);
+    for (auto& mino : ghost.minos) {
+        int x = mino.x + ghost.position.x;
+        int y = 19 - (mino.y + ghost.position.y);
+
+        float cell_length = board_area.w / 10.0;
+        int cell_x = board_area.x + cell_length * x;
+        int cell_y = board_area.y + cell_length * y;
+        window.DrawRectFilled({.x = cell_x, .y = cell_y, .w = int(cell_length), .h = int(cell_length)}, light_gray);
+    }
 
     // render the current piece
     for (auto& mino : game.p1_game.current_piece.minos) {

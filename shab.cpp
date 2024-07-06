@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
                 function_exports += ",";
         }
 
-        std::string command = std::string("em++ -std=c++23 ");
+        std::string command = std::string("em++ -O3 -std=c++23 ");
 
         for (auto &source : sources) {
             command += source + " ";
