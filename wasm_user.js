@@ -1,7 +1,5 @@
 
-
 let app = document.getElementById("game");
-console.log(app);
 
 app.style.position = "absolute";
 app.style.left = 0 + 'px';
@@ -16,8 +14,6 @@ function resize_canvas() {
     app.style.width = (window.innerWidth + 1) + 'px';
     app.style.height = (window.innerHeight + 1) + 'px';
 } resize_canvas();
-
-console.log(app);
 
 
 let ctx = app.getContext("2d");
@@ -49,7 +45,6 @@ let result = Module.onRuntimeInitialized = () => {
 
             } else
                 Module._keydown(e.key.toLowerCase().charCodeAt(0));
-            console.log(e.key);
         }
     });
 
@@ -65,7 +60,6 @@ let result = Module.onRuntimeInitialized = () => {
                 Module._keyup('\x03'.charCodeAt(0));
             } else
                 Module._keyup(e.key.toLowerCase().charCodeAt(0));
-            console.log(e.key);
         }
     });
 
