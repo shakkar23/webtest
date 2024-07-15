@@ -59,8 +59,9 @@ void State::DrawRectFilled(Rect outline, Color c) {
         }
     }
 }
-constexpr auto das = 20.0f / 60.0f;
+constexpr auto das = 6.0f / 60.0f;
 constexpr auto arr = 0.0f / 60.0f;
+
 void State::logic(float dt) {
     if (getKey('w').pressed) {
         this->game.p1_game.process_movement(this->game.p1_game.current_piece, Movement::SonicDrop);
