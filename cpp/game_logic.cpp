@@ -59,6 +59,7 @@ void State::DrawRectFilled(Rect outline, Color c) {
         }
     }
 }
+
 constexpr auto das = 6.0f / 60.0f;
 constexpr auto arr = 0.0f / 60.0f;
 
@@ -173,6 +174,28 @@ void State::render() {
             if (this->game.p1_game.board.get(x, y))
                 this->DrawRectFilled({.x = cell_x, .y = cell_y, .w = int(cell_length), .h = int(cell_length)}, gray);
         }
+
+    // render the queue
+    Rect queue_area = {
+        board_area.x,
+        board_area.y,
+        // three real cells wide
+        int(board_area.w / (board_area.w / 10.0f) * 3.0f),
+        board_area.h /* / (board_area.h / 20.0)*/
+    };
+    for (int piece_i = 0; piece_i < game.p1_game.queue.size(); ++piece_i) {
+        Rect drawing_area = queue_area;
+        drawing_area.y = queue_area.h / piece_i;
+        DrawRect(drawing_area, gray);
+        break;
+        for (int x = 0; x < 5; ++x)
+            for (int y = 0; y < 5; ++y) {
+                float cell_length = drawing_area.w / 3.0;
+                int cell_x = drawing_area.x + cell_length * x;
+                int cell_y = drawing_area.y + cell_length * y;
+                this->DrawRect({.x = cell_x, .y = cell_y, .w = int(cell_length), .h = int(cell_length)}, gray);
+            }
+    }
 
     // render the board outline
     for (int x = 0; x < 10; ++x)
