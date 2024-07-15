@@ -186,8 +186,8 @@ void State::render() {
     for (int piece_i = 0; piece_i < game.p1_game.queue.size(); ++piece_i) {
         Rect drawing_area = queue_area;
         drawing_area.y = queue_area.h / piece_i;
-        DrawRect(drawing_area, red);
         break;
+        DrawRect(drawing_area, red);
         for (int x = 0; x < 5; ++x)
             for (int y = 0; y < 5; ++y) {
                 float cell_length = drawing_area.w / 3.0;
