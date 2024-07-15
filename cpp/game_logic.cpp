@@ -59,7 +59,8 @@ void State::DrawRectFilled(Rect outline, Color c) {
         }
     }
 }
-
+constexpr auto das = 20.0f / 60.0f;
+constexpr auto arr = 0.0f / 60.0f;
 void State::logic(float dt) {
     if (getKey('w').pressed) {
         this->game.p1_game.process_movement(this->game.p1_game.current_piece, Movement::SonicDrop);
@@ -77,7 +78,7 @@ void State::logic(float dt) {
     if (getKey('a').held || getKey('a').pressed) {
         if (right_acc == 0.0f) {  // das
             this->game.p1_game.process_movement(this->game.p1_game.current_piece, Movement::Left);
-        } else if (right_acc >= (5.0f / 60.0f)) {  // arr is once per frame but whatever
+        } else if (right_acc >= das) {  // arr is once per frame but whatever
             this->game.p1_game.process_movement(this->game.p1_game.current_piece, Movement::Left);
         }
         right_acc += dt;
@@ -93,7 +94,7 @@ void State::logic(float dt) {
     if (getKey('d').held) {
         if (left_acc == 0.0f) {  // das
             this->game.p1_game.process_movement(this->game.p1_game.current_piece, Movement::Right);
-        } else if (left_acc >= (5.0f / 60.0f)) {  // arr is once per frame but whatever
+        } else if (left_acc >= das) {  // arr is once per frame but whatever
             this->game.p1_game.process_movement(this->game.p1_game.current_piece, Movement::Right);
         }
         left_acc += dt;
