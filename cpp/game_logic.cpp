@@ -186,14 +186,24 @@ void State::render() {
     for (int piece_i = 0; piece_i < game.p1_game.queue.size(); ++piece_i) {
         Rect drawing_area = queue_area;
         drawing_area.y = ((float)queue_area.h / game.p1_game.queue.size()) * piece_i;
+
         Piece queue_piece = game.p1_game.queue[piece_i];
         for (auto& mino : queue_piece.minos) {
-            int x = mino.x;
+            int x = mino.x + 1;
             int y = mino.y;
             float cell_length = drawing_area.w / 3.0f;
             int cell_x = drawing_area.x + cell_length * x + 2;
             int cell_y = drawing_area.y + cell_length * y + 2;
             this->DrawRectFilled({.x = cell_x, .y = cell_y, .w = int(cell_length), .h = int(cell_length)}, red);
+        }
+
+        for (int x = 0; x < 5; ++x) {
+            for (int y = 0; y < 5; ++y) {
+                float cell_length = drawing_area.w / 3.0f;
+                int cell_x = drawing_area.x + cell_length * x;
+                int cell_y = drawing_area.y + cell_length * y;
+                this->DrawRect({.x = cell_x, .y = cell_y, .w = int(cell_length), .h = int(cell_length)}, blue);
+            }
         }
     }
 
