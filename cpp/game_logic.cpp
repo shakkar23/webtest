@@ -193,7 +193,7 @@ void State::render() {
             int y = mino.y;
             float cell_length = drawing_area.w / 3.0f;
             int cell_x = drawing_area.x + cell_length * (x + 2);
-            int cell_y = drawing_area.y + cell_length * (5 - y + 2);
+            int cell_y = drawing_area.y + cell_length * (5 - (y + 2));
             this->DrawRectFilled({.x = cell_x, .y = cell_y, .w = int(cell_length), .h = int(cell_length)}, red);
         }
 
