@@ -244,7 +244,7 @@ void State::render() {
             this->DrawRect({.x = cell_x, .y = cell_y, .w = int(cell_length), .h = int(cell_length)}, gray);
         }
 
-    // this->DrawRect(board_area, green);
+    this->DrawRect(board_area, green);
 }
 
 State::Key State::getKey(char key) {
