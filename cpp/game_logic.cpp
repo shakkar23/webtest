@@ -196,7 +196,7 @@ void State::render() {
         for (auto& mino : queue_piece.minos) {
             int x = mino.x;
             int y = mino.y;
-            float cell_length = drawing_area.w / 5.0f;
+            float cell_length = drawing_area.w / 5.0f; // five cells in width were provided
             int cell_x = drawing_area.x + cell_length * (x + 2);
             int cell_y = drawing_area.y + cell_length * (5 - (y + 2));
             this->DrawRectFilled({.x = cell_x, .y = cell_y, .w = int(cell_length), .h = int(cell_length)}, red);
@@ -204,7 +204,7 @@ void State::render() {
 
         for (int x = 0; x < 5; ++x) {
             for (int y = 0; y < 5; ++y) {
-                float cell_length = drawing_area.w / 5.0f;
+                float cell_length = drawing_area.w / 5.0f;  // five cells in width were provided
                 int cell_x = drawing_area.x + cell_length * x;
                 int cell_y = drawing_area.y + cell_length * y;
                 this->DrawRect({.x = cell_x, .y = cell_y, .w = int(cell_length), .h = int(cell_length)}, blue);
@@ -215,7 +215,27 @@ void State::render() {
     }
     // this->DrawRect(queue_area, green);
 
-    // render the board outline
+
+    // render the hold
+    const Rect hold_area = {
+        .x = board_area.x - int((board_area.w / 10.0f) * 3.0f),  // minus three cells wide
+        .y = board_area.y,
+        // three real cells wide
+        .w = int(board_area.w / (board_area.w / 10.0f) * 3.0f),
+        .h = int(board_area.h / 20.0f * 3.0f)
+    };
+
+    if(this->game.p1_game.hold.has_value())
+        for (auto& mino : this->game.p1_game.hold.value().minos) {
+            int x = mino.x;
+            int y = mino.y;
+            float cell_length = hold_area.w / 5.0f;  // five cells in width were provided
+            int cell_x = hold_area.x + cell_length * (x + 2);
+            int cell_y = hold_area.y + cell_length * (5 - (y + 2));
+            this->DrawRectFilled({.x = cell_x, .y = cell_y, .w = int(cell_length), .h = int(cell_length)}, red);
+        }
+
+    // render the board grid
     for (int x = 0; x < 10; ++x)
         for (int y = 0; y < 20; ++y) {
             float cell_length = board_area.w / 10.0;
