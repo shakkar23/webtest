@@ -176,24 +176,27 @@ void State::render() {
         }
 
     // render the queue
-    Rect queue_area = {
+    const Rect queue_area = {
         .x = board_area.x + board_area.w,
         .y = board_area.y,
         // three real cells wide
         .w = int(board_area.w / (board_area.w / 10.0f) * 3.0f),
         .h = board_area.h /* / (board_area.h / 20.0)*/
     };
-    this->DrawRect(queue_area, green);
 
     for (int piece_i = 0; piece_i < game.p1_game.queue.size(); ++piece_i) {
-        Rect drawing_area = queue_area;
-        drawing_area.y = ((float)queue_area.h / game.p1_game.queue.size()) * piece_i;
+        const Rect drawing_area = {
+            .x = queue_area.x,
+            .y = int(((float)queue_area.h / game.p1_game.queue.size()) * piece_i) + queue_area.y,
+            .w = queue_area.w,
+            .h = queue_area.h,
+        };
 
         Piece queue_piece = game.p1_game.queue[piece_i];
         for (auto& mino : queue_piece.minos) {
             int x = mino.x;
             int y = mino.y;
-            float cell_length = drawing_area.w / 3.0f;
+            float cell_length = drawing_area.w / 5.0f;
             int cell_x = drawing_area.x + cell_length * (x + 2);
             int cell_y = drawing_area.y + cell_length * (5 - (y + 2));
             this->DrawRectFilled({.x = cell_x, .y = cell_y, .w = int(cell_length), .h = int(cell_length)}, red);
@@ -201,13 +204,16 @@ void State::render() {
 
         for (int x = 0; x < 5; ++x) {
             for (int y = 0; y < 5; ++y) {
-                float cell_length = drawing_area.w / 3.0f;
+                float cell_length = drawing_area.w / 5.0f;
                 int cell_x = drawing_area.x + cell_length * x;
                 int cell_y = drawing_area.y + cell_length * y;
                 this->DrawRect({.x = cell_x, .y = cell_y, .w = int(cell_length), .h = int(cell_length)}, blue);
             }
         }
+
+        // this->DrawRect(drawing_area, green);
     }
+    // this->DrawRect(queue_area, green);
 
     // render the board outline
     for (int x = 0; x < 10; ++x)
@@ -217,6 +223,8 @@ void State::render() {
             int cell_y = board_area.y + cell_length * y;
             this->DrawRect({.x = cell_x, .y = cell_y, .w = int(cell_length), .h = int(cell_length)}, gray);
         }
+
+    this->DrawRect(board_area, green);
 }
 
 State::Key State::getKey(char key) {
