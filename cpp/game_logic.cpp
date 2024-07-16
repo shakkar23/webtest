@@ -60,7 +60,7 @@ void State::DrawRectFilled(Rect outline, Color c) {
     }
 }
 
-constexpr auto das = 6.0f / 60.0f;
+constexpr auto das = 9.0f / 60.0f;
 constexpr auto arr = 0.0f / 60.0f;
 
 void State::logic(float dt) {
@@ -234,7 +234,6 @@ void State::render() {
             int cell_y = hold_area.y + cell_length * (5 - (y + 2));
             this->DrawRectFilled({.x = cell_x, .y = cell_y, .w = int(cell_length), .h = int(cell_length)}, red);
         }
-        
 
     // render the board grid
     for (int x = 0; x < 10; ++x)
