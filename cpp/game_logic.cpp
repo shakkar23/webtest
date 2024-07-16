@@ -234,6 +234,7 @@ void State::render() {
             int cell_y = hold_area.y + cell_length * (5 - (y + 2));
             this->DrawRectFilled({.x = cell_x, .y = cell_y, .w = int(cell_length), .h = int(cell_length)}, red);
         }
+        
 
     // render the board grid
     for (int x = 0; x < 10; ++x)
