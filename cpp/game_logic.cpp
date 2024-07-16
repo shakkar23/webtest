@@ -183,6 +183,8 @@ void State::render() {
         .w = int(board_area.w / (board_area.w / 10.0f) * 3.0f),
         .h = board_area.h /* / (board_area.h / 20.0)*/
     };
+    this->DrawRect(queue_area, green);
+
     for (int piece_i = 0; piece_i < game.p1_game.queue.size(); ++piece_i) {
         Rect drawing_area = queue_area;
         drawing_area.y = ((float)queue_area.h / game.p1_game.queue.size()) * piece_i;
