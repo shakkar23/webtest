@@ -189,7 +189,7 @@ void State::render() {
 
         Piece queue_piece = game.p1_game.queue[piece_i];
         for (auto& mino : queue_piece.minos) {
-            int x = mino.x + 1;
+            int x = mino.x;
             int y = mino.y;
             float cell_length = drawing_area.w / 3.0f;
             int cell_x = drawing_area.x + cell_length * (x + 2);
